@@ -1,0 +1,20 @@
+name: 'Droopler Color Field'
+core: 8.x
+core_version_requirement: ^8 || ^9
+description: 'Provides color field type.'
+type: module
+dependencies:
+  # Core.
+  - drupal:content_translation
+  - drupal:field
+  - drupal:language
+  - drupal:text
+
+  # Contrib.
+  - features:features
+  - paragraphs:paragraphs
+
+package: Droopler
+version: DROOPLER_VERSION
+libraries:
+  - d_color/color

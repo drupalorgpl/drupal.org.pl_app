@@ -1,0 +1,4 @@
+services:
+  d_application_api.features:
+    class: Drupal\d_application_api\Helpers\Features
+    arguments: ['@logger.factory', '@features.manager']
