@@ -10,7 +10,6 @@ dependencies:
     - field.field.node.content_page.field_teaser_media_image
     - field.field.node.content_page.field_teaser_text
     - node.type.content_page
-    - field.field.node.content_page.field_meta_tags
   module:
     - entity_reference_revisions
     - user

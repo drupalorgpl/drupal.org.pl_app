@@ -118,6 +118,9 @@
         "patches": {
             "drupal/advagg": {
                 "Deprecated function rtrim fix": "https://www.drupal.org/files/issues/2022-12-13/3258389-57.patch"
+            },
+            "droptica/d_application_api": {
+                "Add support for Drupal 10": "patches/d_application_api/d10-compatibility.patch"
             }
         }
     }

@@ -11,7 +11,7 @@ id: block_content.content_block.field_d_main_title
 field_name: field_d_main_title
 entity_type: block_content
 bundle: content_block
-label: Title
+label: Tytuł
 description: ''
 required: false
 translatable: false

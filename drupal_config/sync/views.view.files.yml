@@ -17,7 +17,7 @@ base_field: fid
 display:
   default:
     id: default
-    display_title: Master
+    display_title: Główny
     display_plugin: default
     position: 0
     display_options:
@@ -66,7 +66,7 @@ display:
           entity_type: file
           entity_field: filename
           plugin_id: field
-          label: Name
+          label: Nazwa
           exclude: false
           alter:
             alter_text: false
@@ -335,6 +335,15 @@ display:
             date_format: medium
             custom_date_format: ''
             timezone: ''
+            tooltip:
+              date_format: ''
+              custom_date_format: ''
+            time_diff:
+              enabled: false
+              future_format: '@interval hence'
+              past_format: '@interval ago'
+              granularity: 2
+              refresh: 60
         changed:
           id: changed
           table: file_managed
@@ -391,6 +400,15 @@ display:
             date_format: medium
             custom_date_format: ''
             timezone: ''
+            tooltip:
+              date_format: ''
+              custom_date_format: ''
+            time_diff:
+              enabled: false
+              future_format: '@interval hence'
+              past_format: '@interval ago'
+              granularity: 2
+              refresh: 60
         count:
           id: count
           table: file_usage
@@ -456,26 +474,26 @@ display:
           total_pages: 0
           id: 0
           tags:
-            next: 'Next ›'
-            previous: '‹ Previous'
+            next: 'Następna ›'
+            previous: '‹ Poprzednia'
           expose:
             items_per_page: false
-            items_per_page_label: 'Items per page'
+            items_per_page_label: 'Elementów na stronę'
             items_per_page_options: '5, 10, 25, 50'
             items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
+            items_per_page_options_all_label: '- Wszystko -'
             offset: false
-            offset_label: Offset
+            offset_label: Przesunięcie
       exposed_form:
         type: basic
         options:
-          submit_button: Filter
+          submit_button: Filtr
           reset_button: false
-          reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
+          reset_button_label: Resetuj
+          exposed_sorts_label: 'Sortuj po'
           expose_sort_order: true
-          sort_asc_label: Asc
-          sort_desc_label: Desc
+          sort_asc_label: Rosnąco
+          sort_desc_label: Malejąco
       access:
         type: perm
         options:
@@ -991,16 +1009,16 @@ display:
           total_pages: 0
           id: 0
           tags:
-            next: 'Next ›'
-            previous: '‹ Previous'
+            next: 'Następna ›'
+            previous: '‹ Poprzednia'
           expose:
             items_per_page: false
-            items_per_page_label: 'Items per page'
+            items_per_page_label: 'Elementów na stronę'
             items_per_page_options: '5, 10, 25, 50'
             items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
+            items_per_page_options_all_label: '- Wszystko -'
             offset: false
-            offset_label: Offset
+            offset_label: Przesunięcie
       empty: {  }
       arguments:
         fid:
@@ -1017,7 +1035,7 @@ display:
           exception:
             value: all
             title_enable: false
-            title: All
+            title: Wszystko
           title_enable: true
           title: 'Informacje o wykorzystaniu pliku dla {{ arguments.fid }}'
           default_argument_type: fixed

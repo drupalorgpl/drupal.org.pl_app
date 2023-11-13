@@ -1,0 +1,12 @@
+diff --git a/d_application_api.info.yml b/d_application_api.info.yml
+index 63f96e7..076551a 100644
+--- a/d_application_api.info.yml
++++ b/d_application_api.info.yml
+@@ -1,6 +1,6 @@
+ name: Application API module
+ description: Helper classess and methods
+ type: module
+-core_version_requirement: ^8 || ^9
++core_version_requirement: ^8 || ^10
+ package: Droptica
+ version: '8.x-1.1'

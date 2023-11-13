@@ -12,7 +12,6 @@ dependencies:
     - field.field.node.content_page.field_teaser_text
     - image.style.small_box_image
     - node.type.content_page
-    - field.field.node.content_page.field_meta_tags
   module:
     - media
     - user

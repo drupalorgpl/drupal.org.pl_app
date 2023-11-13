@@ -8,7 +8,7 @@ dependencies:
 _core:
   default_config_hash: gkRJCqHr3uSO8ALHLatX-7YKfX0lWEgkC5qMBtCf_Sg
 id: block_content
-label: 'Content blocks'
+label: 'Biblioteka własnych bloków'
 module: views
 description: 'Znajdź i zarządzaj własnymi blokami.'
 tag: default
@@ -17,7 +17,7 @@ base_field: id
 display:
   default:
     id: default
-    display_title: Główny
+    display_title: Master
     display_plugin: default
     position: 0
     display_options:
@@ -163,7 +163,7 @@ display:
           entity_type: block_content
           entity_field: changed
           plugin_id: field
-          label: Uaktualniono
+          label: Updated
           exclude: false
           alter:
             alter_text: false
@@ -227,7 +227,7 @@ display:
           admin_label: ''
           entity_type: block_content
           plugin_id: entity_operations
-          label: Operacje
+          label: Operations
           exclude: false
           alter:
             alter_text: false
@@ -277,26 +277,26 @@ display:
           total_pages: null
           id: 0
           tags:
-            next: 'Następna ›'
-            previous: '‹ Poprzednia'
+            next: 'Next ›'
+            previous: '‹ Previous'
           expose:
             items_per_page: false
-            items_per_page_label: 'Elementów na stronę'
+            items_per_page_label: 'Items per page'
             items_per_page_options: '5, 10, 25, 50'
             items_per_page_options_all: false
-            items_per_page_options_all_label: '- Wszystko -'
+            items_per_page_options_all_label: '- All -'
             offset: false
-            offset_label: Przesunięcie
+            offset_label: Offset
       exposed_form:
         type: basic
         options:
           submit_button: Zastosuj
           reset_button: false
-          reset_button_label: Resetuj
-          exposed_sorts_label: 'Sortuj po'
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
           expose_sort_order: true
-          sort_asc_label: Rosnąco
-          sort_desc_label: Malejąco
+          sort_asc_label: Asc
+          sort_desc_label: Desc
       access:
         type: perm
         options:
@@ -525,7 +525,7 @@ display:
       tags: {  }
   page_1:
     id: page_1
-    display_title: Strona
+    display_title: Page
     display_plugin: page
     position: 1
     display_options:
