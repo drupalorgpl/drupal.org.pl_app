@@ -11,13 +11,11 @@ dependencies:
     - field.field.node.blog_post.field_meta_tags
     - image.style.responsive_image_768
     - node.type.blog_post
-    - field.field.node.blog_post.field_meta_tags
   module:
     - lazy
     - media
     - text
     - user
-    - lazy
 _core:
   default_config_hash: '-y4q1vnLivNrNb_tTrxXedhHB6WqCjMvtjm4nQWSGnE'
 id: node.blog_post.thumbnail

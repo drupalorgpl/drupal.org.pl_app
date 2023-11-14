@@ -174,7 +174,7 @@ display:
           exposed: true
           expose:
             operator_id: title_op
-            label: Title
+            label: Tytuł
             description: ''
             use_operator: false
             operator: title_op
