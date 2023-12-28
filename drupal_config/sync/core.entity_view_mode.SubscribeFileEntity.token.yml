@@ -6,5 +6,6 @@ dependencies:
     - d_p_subscribe_file
 id: SubscribeFileEntity.token
 label: Token
+description: ''
 targetEntityType: SubscribeFileEntity
 cache: true
