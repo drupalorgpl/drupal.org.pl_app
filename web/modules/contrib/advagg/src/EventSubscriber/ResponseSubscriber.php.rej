@@ -1,0 +1,23 @@
+--- src/EventSubscriber/ResponseSubscriber.php
++++ src/EventSubscriber/ResponseSubscriber.php
+@@ -54,7 +54,7 @@ class ResponseSubscriber implements EventSubscriberInterface {
+       $response = $event->getResponse();
+ 
+       // Ensure that it is an html response.
+-      if (stripos($response->headers->get('Content-Type'), 'text/html') === FALSE) {
++      if (stripos($response->headers->get('Content-Type', ''), 'text/html') === FALSE) {
+         return;
+       }
+ 
+@@ -90,7 +90,10 @@ class ResponseSubscriber implements EventSubscriberInterface {
+     }
+     $content = $response->getContent();
+     $pattern = '/(<script src="|url\("|rel="stylesheet" href=")(\/[a-zA-Z0-0].*")/';
+-    $response->setContent(preg_replace_callback($pattern, [$this, 'forceAbsolutePathsCallback'], $content));
++    $response->setContent(preg_replace_callback($pattern, [
++      $this,
++      'forceAbsolutePathsCallback',
++    ], $content));
+ 
+   }
+ 
