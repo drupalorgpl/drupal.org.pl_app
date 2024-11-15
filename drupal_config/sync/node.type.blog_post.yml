@@ -14,8 +14,8 @@ _core:
   default_config_hash: jSOHA0ysOMdiMNk1aNFBNjKCE-Fxb_I6G-phYRPXBmw
 name: 'Blog post'
 type: blog_post
-description: ''
-help: ''
+description: null
+help: null
 new_revision: true
 preview_mode: 0
 display_submitted: true

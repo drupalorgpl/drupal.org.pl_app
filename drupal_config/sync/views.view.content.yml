@@ -255,6 +255,7 @@ display:
             previous: '‹ Poprzednia'
             first: '« Pierwsza'
             last: 'Ostatnia »'
+          pagination_heading_level: h4
       exposed_form:
         type: basic
         options:
