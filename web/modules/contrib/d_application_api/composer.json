@@ -1,0 +1,7 @@
+{
+  "name": "droptica/d_application_api",
+  "description": "Application helper classes and methods.",
+  "type": "drupal-module",
+  "keywords": ["Drupal", "Features"],
+  "license": "GPL-2.0+"
+}
