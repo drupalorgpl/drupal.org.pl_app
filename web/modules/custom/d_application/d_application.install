@@ -90,3 +90,11 @@ function d_application_update_8004() {
   $updater = \Drupal::service('d_update');
   $updater->checklist()->markAllUpdates();
 }
+
+/**
+ * Uninstall modules that are no longer needed.
+ */
+function d_application_update_8005() {
+    $modules = ['d_application_api', 'system_status'];
+    \Drupal::service('module_installer')->uninstall($modules, TRUE);
+}
