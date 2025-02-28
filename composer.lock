@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9d74337b2d80f39537e260c84fb93e65",
+    "content-hash": "c9360c134ec02931a9d2c93ce6e49405",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1552,12 +1552,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/droptica/droopler.git",
-                "reference": "e71a849f0c166228df5b7bdc22f9f3ae8eeaa4a5"
+                "reference": "765d93c25fc1097c56645626ba069eb52e5411fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/droptica/droopler/zipball/e71a849f0c166228df5b7bdc22f9f3ae8eeaa4a5",
-                "reference": "e71a849f0c166228df5b7bdc22f9f3ae8eeaa4a5",
+                "url": "https://api.github.com/repos/droptica/droopler/zipball/765d93c25fc1097c56645626ba069eb52e5411fb",
+                "reference": "765d93c25fc1097c56645626ba069eb52e5411fb",
                 "shasum": ""
             },
             "require": {
@@ -1575,6 +1575,7 @@
                 "drupal/entity_reference_display": "^2.0",
                 "drupal/entity_reference_revisions": "^1.3",
                 "drupal/facets": "^2.0",
+                "drupal/features": "3.13.0",
                 "drupal/field_group": "^3.0",
                 "drupal/geysir": "^2.1@RC",
                 "drupal/google_analytics": "^4.0",
@@ -1633,7 +1634,7 @@
                 "issues": "https://github.com/droptica/droopler/issues",
                 "source": "https://github.com/droptica/droopler/tree/3.4.0-alpha"
             },
-            "time": "2025-02-25T10:11:37+00:00"
+            "time": "2025-02-28T09:06:07+00:00"
         },
         {
             "name": "drupal/admin_toolbar",
@@ -2827,6 +2828,23 @@
             }
         },
         {
+            "name": "drupal/features",
+            "version": "3.13.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/issue/features-3447460.git",
+                "reference": "40732dfd317473d9913c9e97d0cf7e4d68a78934"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://git.drupalcode.org/issue/features-3447460/-/archive/40732dfd317473d9913c9e97d0cf7e4d68a78934/features-3447460-40732dfd317473d9913c9e97d0cf7e4d68a78934.zip"
+            },
+            "require": {
+                "drupal/core": "^9.4 || ^10 || ^11"
+            },
+            "type": "drupal-module"
+        },
+        {
             "name": "drupal/field_group",
             "version": "3.6.0",
             "source": {
@@ -2904,11 +2922,17 @@
         },
         {
             "name": "drupal/geysir",
-            "version": "dev-2.1.x",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/geysir.git",
-                "reference": "3ca89e6d6fd0c5c818bc3201234bd0c5b0bdf774"
+                "reference": "2.1.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/geysir-2.1.1.zip",
+                "reference": "2.1.1",
+                "shasum": "3c0ecc01bfb2d3b29ce40d27fc4576568d56b757"
             },
             "require": {
                 "drupal/core": "^9.3 || ^10 || ^11",
@@ -2917,12 +2941,9 @@
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-2.1.x": "2.1.x-dev"
-                },
                 "drupal": {
-                    "version": "2.1.0-rc1+3-dev",
-                    "datestamp": "1720551333",
+                    "version": "2.1.1",
+                    "datestamp": "1740639390",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
@@ -2935,8 +2956,12 @@
             ],
             "authors": [
                 {
-                    "name": "AmeXio",
+                    "name": "amexio",
                     "homepage": "https://www.drupal.org/user/213049"
+                },
+                {
+                    "name": "damian.skiba",
+                    "homepage": "https://www.drupal.org/user/2799077"
                 },
                 {
                     "name": "gpietrzak",
@@ -2947,6 +2972,10 @@
                     "homepage": "https://www.drupal.org/user/363120"
                 },
                 {
+                    "name": "jaro.2801",
+                    "homepage": "https://www.drupal.org/user/1572856"
+                },
+                {
                     "name": "jover",
                     "homepage": "https://www.drupal.org/user/310720"
                 },
@@ -2955,8 +2984,12 @@
                     "homepage": "https://www.drupal.org/user/2195874"
                 },
                 {
-                    "name": "Maciej Lukianski",
+                    "name": "maciej lukianski",
                     "homepage": "https://www.drupal.org/user/400060"
+                },
+                {
+                    "name": "michal.magdziarek",
+                    "homepage": "https://www.drupal.org/user/3584893"
                 },
                 {
                     "name": "sayco",
@@ -4078,16 +4111,6 @@
                 "source": "https://git.drupalcode.org/project/svg_image",
                 "issues": "https://www.drupal.org/project/issues/svg_image"
             }
-        },
-        {
-            "name": "drupal/system_status",
-            "version": "2.8.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/issue/system_status-3299281",
-                "reference": "3299281-automated-drupal-10"
-            },
-            "type": "drupal-module"
         },
         {
             "name": "drupal/token",
