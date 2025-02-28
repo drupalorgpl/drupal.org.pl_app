@@ -40,14 +40,14 @@
         "composer/installers": "^2.3",
         "cweagans/composer-patches": "^1.7",
         "droptica/d_application_api": "^1.1",
-        "droptica/droopler": "8.3.3.0-rc3",
+        "droptica/droopler": "^3.4.0",
         "drupal/advagg": "^6.0@alpha",
         "drupal/core-composer-scaffold": "^10.4",
         "drupal/core-recommended": "^10.4",
         "drupal/devel": "^5.0",
         "drupal/eu_cookie_compliance": "^1.25",
         "drupal/lazy": "^4.0",
-        "drupal/linkit": "^6.1",
+        "drupal/linkit": "^7",
         "drupal/rdf": "^2.1",
         "drupal/system_status": "^2.8",
         "drupal/upgrade_status": "^4.3",
@@ -120,6 +120,9 @@
             "droptica/d_application_api": {
                 "Add support for Drupal 10": "patches/d_application_api/d10-compatibility.patch"
             }
+        },
+        "drupal-lenient": {
+            "allowed-list": ["drupal/features"]
         }
     }
 }
