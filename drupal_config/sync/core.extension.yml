@@ -4,10 +4,6 @@ module:
   admin_toolbar: 0
   admin_toolbar_search: 0
   admin_toolbar_tools: 0
-  advagg: 0
-  advagg_css_minify: 0
-  advagg_js_minify: 0
-  advagg_mod: 0
   block: 0
   block_content: 0
   breakpoint: 0
@@ -21,7 +17,6 @@ module:
   contextual: 0
   ctools: 0
   d_application: 0
-  d_application_api: 0
   d_block: 0
   d_block_field: 0
   d_blog: 0
@@ -29,6 +24,7 @@ module:
   d_color: 0
   d_content: 0
   d_content_init: 0
+  d_demo: 0
   d_geysir: 0
   d_lang_dropdown: 0
   d_media: 0
@@ -58,6 +54,7 @@ module:
   dblog: 0
   dynamic_page_cache: 0
   editor: 0
+  entity: 0
   entity_reference_display: 0
   entity_reference_revisions: 0
   features: 0
@@ -76,6 +73,7 @@ module:
   lazy: 0
   link: 0
   link_attributes: 0
+  link_attributes_menu_link_content: 0
   linkit: 0
   locale: 0
   media: 0
@@ -101,7 +99,6 @@ module:
   svg_image: 0
   svg_image_responsive: 0
   system: 0
-  system_status: 0
   taxonomy: 0
   text: 0
   token: 0
