@@ -2,7 +2,7 @@
 [![N|Solid](https://www.droopler.pl/sites/default/files/logo_droopler.jpg)](http://droopler.pl)
 
 ## What is Droopler? ##
-Droopler is a Drupal 8 profile designed to kickstart a new webpage in a few minutes. It's based on the latest frontend technologies, including Bootstrap 4. The maintainer of Droopler is [Droptica](https://droptica.com).
+Droopler is a Drupal 8/9/10/11 profile designed to kickstart a new webpage in a few minutes. It's based on the latest frontend technologies, including Bootstrap 4. The maintainer of Droopler is [Droptica](https://droptica.com).
 
 ## What is this Droopler template? ##
 It's a skeleton, a boilerplate for new projects based on Droopler. If you wish to use Droopler - fork (or download) this repository. It contains a minimum set of code to start your new website. Threat it the same as [drupal-composer/drupal-project](https://github.com/drupal-composer/drupal-project).
