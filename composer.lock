@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bd8167f191ba5b649ec1004307891cbb",
+    "content-hash": "e58ee657857122bc5a6c4b00a60fb514",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1548,7 +1548,7 @@
         },
         {
             "name": "droptica/droopler",
-            "version": "3.5.2-alpha4",
+            "version": "3.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/droptica/droopler.git",
@@ -1638,7 +1638,7 @@
             "description": "Droopler installation profile for Drupal 10.",
             "support": {
                 "issues": "https://github.com/droptica/droopler/issues",
-                "source": "https://github.com/droptica/droopler/tree/3.5.2-alpha4"
+                "source": "https://github.com/droptica/droopler/tree/3.5.3"
             },
             "time": "2025-03-07T09:17:52+00:00"
         },
