@@ -1,0 +1,5 @@
+name: Test Core
+type: module
+package: Testing
+dependencies:
+  - features:features

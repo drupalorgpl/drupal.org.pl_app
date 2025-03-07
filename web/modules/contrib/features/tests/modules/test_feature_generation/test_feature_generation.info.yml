@@ -1,0 +1,5 @@
+name: Test feature generation
+type: module
+package: Testing
+dependencies:
+  - features:features
