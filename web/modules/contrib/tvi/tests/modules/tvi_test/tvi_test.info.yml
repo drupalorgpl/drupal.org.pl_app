@@ -1,0 +1,9 @@
+name: Taxonomy Views Integrator Test
+type: module
+description: Provides tests for TVI.
+core_version_requirement: ^8 || ^9 || ^10 || ^11
+
+dependencies:
+  - tvi:tvi
+  - drupal:views
+  - drupal:taxonomy

@@ -1,0 +1,7 @@
+core : 8.x
+core_version_requirement: ^8 || ^9 || ^10
+type: module
+name : System Status
+description : "Provides an overview of all the available updates for your Drupal website using an external service."
+configure : system_status.admin_settings
+
