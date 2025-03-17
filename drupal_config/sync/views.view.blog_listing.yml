@@ -301,7 +301,7 @@ display:
           exception:
             value: all
             title_enable: false
-            title: All
+            title: Wszystko
           title_enable: true
           title: '{{ arguments.tid }}'
           default_argument_type: fixed

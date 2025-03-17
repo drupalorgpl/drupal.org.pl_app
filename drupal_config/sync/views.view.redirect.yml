@@ -172,7 +172,7 @@ display:
           entity_type: redirect
           entity_field: created
           plugin_id: date
-          label: Utworzono
+          label: Created
           exclude: false
           alter:
             alter_text: false
@@ -247,7 +247,7 @@ display:
       exposed_form:
         type: basic
         options:
-          submit_button: Zastosuj
+          submit_button: Filtr
           reset_button: true
           reset_button_label: Resetuj
           exposed_sorts_label: 'Sortuj po'
