@@ -1,0 +1,5 @@
+name: test_feature
+type: module
+package: Testing
+dependencies:
+  - features:features
