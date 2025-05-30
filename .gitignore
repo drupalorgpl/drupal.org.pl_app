@@ -17,6 +17,7 @@
 /web/robots.txt
 
 # Ignore sensitive information
+database.sql
 /web/sites/*
 
 # Ignore SimpleTest multi-site environment.
