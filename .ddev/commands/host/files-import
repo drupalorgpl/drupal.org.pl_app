@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# Include essentials file(s).
+source "${DDEV_APPROOT}/.ddev/commands/host/_bash/bash"
+
+# File paths.
+FROM_PATH="${DDEV_APPROOT}/.ddev/droptica/files"
+SITES_DEFAULT_PATH="${DDEV_APPROOT}/web/sites/default"
+
+# Add info about restoring.
+printf "%s[%s] %sImporting %sfiles%s...\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "${no_color}"
+
+# Create function for restoring files.
+restore_files() {
+  # Check if files archive exists.
+  if [ -f "${FROM_PATH}/$1" ]; then
+    # Remove all current files.
+    # shellcheck disable=SC2115
+    rm -rf "${SITES_DEFAULT_PATH}/$(echo "$1" | cut -d '.' -f1)/*"
+
+    # Extra new ones.
+    tar -xf "${FROM_PATH}/$1" -C "${SITES_DEFAULT_PATH}"
+
+    # Add info about successful unpacking of all files.
+    printf "%s[%s] %sSuccessfully imported %s%s%s!\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "$(echo "$1" | cut -d '.' -f1)" "${no_color}"
+  else
+     # Add info about non-existing files.
+    printf "%s[%s] %sWe couldn't find any '%s' archive, skipping files-import...\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "$1"
+  fi
+}
+
+# Check if users passed one argument.
+if [ "$#" -ne 1 ]; then
+  # Restore default files.
+  restore_files "files.tar.gz"
+  restore_files "files_private.tar.gz"
+else
+  # Restore user given files.
+  restore_files "$1"
+fi

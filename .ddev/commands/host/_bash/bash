@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# Include essentials file(s).
+source "${DDEV_APPROOT}/.ddev/commands/host/_bash/check"
+source "${DDEV_APPROOT}/.ddev/commands/host/_bash/functions"
+
+# Global variable for site name.
+# shellcheck disable=SC2034
+DDEV_SITENAME_APP=DOrgPL

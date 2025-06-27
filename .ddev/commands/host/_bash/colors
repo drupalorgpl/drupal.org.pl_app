@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Export -T value.
+export TERM=xterm-256color
+
+# Prepare some colors.
+red=$(tput -T xterm-256color setaf 1)
+lime=$(tput -T xterm-256color setaf 10)
+aqua=$(tput -T xterm-256color setaf 14)
+grey=$(tput -T xterm-256color setaf 246)
+yellow=$(tput -T xterm-256color setaf 11)
+no_color=$(tput -T xterm-256color sgr0)
+
+# Prepare other nice things.
+bold=$(tput -T xterm-256color bold)
+link=$(tput setaf 4)$(tput setab 7)$(tput smul)

@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+# Include essentials file(s).
+source "${DDEV_APPROOT}/.ddev/commands/host/_bash/bash"
+
+# Check number of arguments.
+if [ "$#" -lt 1 ]; then
+  # Print proper usage of this command.
+  printf "%s[%s] %sUsage: %sddev certbot <email>\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}"
+  exit
+fi
+
+# Get arguments.
+EMAIL="$1"
+
+# Run docker certbot command.
+docker run --rm \
+  -v "${DDEV_APPROOT}":/app \
+  -v "${DDEV_APPROOT}/.ddev/custom_certs":/etc/letsencrypt \
+  certbot/certbot certonly \
+  --cert-name "${DDEV_SITENAME}.${DDEV_TLD}" \
+  --webroot-path "/app/${DDEV_DOCROOT}" \
+  --webroot \
+  --agree-tos \
+  --no-eff-email \
+  --keep-until-expiring \
+  -m "${EMAIL}" \
+  -d "${DDEV_SITENAME}.${DDEV_TLD}" \
+  -d "www.${DDEV_SITENAME}.${DDEV_TLD}"

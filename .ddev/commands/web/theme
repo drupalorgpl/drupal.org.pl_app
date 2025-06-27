@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# Check if node_modules exists in parent theme directory.
+if ! [ -d /var/www/html/web/profiles/contrib/droopler/themes/custom/droopler_theme/node_modules ]; then
+  # shellcheck disable=SC2164
+  cd /var/www/html/web/profiles/contrib/droopler/themes/custom/droopler_theme
+  yarn install
+  gulp compile
+fi
+
+# shellcheck disable=SC2164
+cd /var/www/html/web/themes/custom/droopler_subtheme
+
+# Check if node_modules exists in subtheme directory.
+if ! [ -d /var/www/html/web/themes/custom/droopler_subtheme/node_modules ]; then
+  # Install all yarn dependencies.
+  yarn install
+fi
+
+# Check if user wants instant-update.
+if [ "$1" == "watch" ]; then
+  # If so watch files.
+  gulp watch
+else
+  # If not run default compile.
+  gulp compile
+fi

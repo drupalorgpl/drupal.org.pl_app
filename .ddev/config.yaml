@@ -1,0 +1,56 @@
+# Project name.
+name: drupal-org
+
+# Project type.
+type: drupal10
+
+# Path for index.php file.
+docroot: web
+
+# PHP version.
+php_version: '8.3'
+
+# Server type.
+webserver_type: nginx-fpm
+
+# Exposed ports for router.
+router_http_port: '8000'
+router_https_port: '8443'
+
+# Additional hostnames.
+additional_hostnames:
+  - www.drupal-org
+
+# Additional FQDNs.
+additional_fqdns: []
+
+# xDebug.
+xdebug_enabled: false
+
+# Timezone.
+timezone: Europe/Warsaw
+
+# Composer & nodejs versions.
+nodejs_version: '18'
+composer_version: '2'
+
+# Database version.
+database:
+  type: mariadb
+  version: '10.5'
+
+# Determinate if FQDN should be accessible from the web (true if not).
+use_dns_when_possible: false
+
+# Add extra webimage packages.
+webimage_extra_packages: [python3, make]
+
+# Web envs.
+web_environment:
+  # Development settings.
+  - D_ENV=dev
+  # Host settings.
+  - D_HOST=drupal-org.ddev.site
+  - D_HOST_ADDITIONAL=www.drupal-org.ddev.site
+  # Config split (uncommented if needed).
+  #- D_CONFIG_SPLIT=dev

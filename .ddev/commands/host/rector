@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+# Include essentials file(s).
+source "${DDEV_APPROOT}/.ddev/commands/host/_bash/bash"
+
+# Check number of arguments.
+if [ "$#" -lt 2 ]; then
+  # Print proper usage of this command.
+  printf "%s[%s] %sUsage: %sddev rector process <directory>\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}"
+  printf "%s[%s] %sExample: %sddev rector process web/modules/custom\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${grey}"
+  exit
+fi
+
+# Enter main project dir.
+cd "${DDEV_APPROOT}" || exit
+
+# Get current OS type.
+OS_TYPE=$(uname)
+OS_DOCKER="quality_tools_"
+
+# Check if OS is Mac.
+if [[ "$OS_TYPE" == "Darwin"* ]]; then
+  # Set docker prefix for Mac.
+  OS_DOCKER="quality_tools-"
+fi
+
+# Check if we have Compatibility.
+if ! docker_image_exists "${OS_DOCKER}rector" "latest"; then
+  # Print proper message and quick script.
+  missing_quality_tools "rector" "latest"
+fi
+
+# Check if rector.php file exists.
+if [[ ! -f "rector.php" ]]; then
+  # Print proper message and exit script.
+  printf "%s[%s] %sNo %srector.php %sfile detected in %sthe root of this project%s, please %scopy an example%s from:\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${red}" "${no_color}" "${aqua}" "${no_color}" "${lime}" "${no_color}"
+  printf "%s[%s] %shttps://bitbucket.org/droptica/quality_tools/src/master/docs/phprector.md\n" "${aqua}" "${DDEV_SITENAME_APP}" "${link}"
+  exit;
+fi
+
+# Run rector with given arguments.
+docker run --rm -t -v "$(pwd)":/app "${OS_DOCKER}rector":latest rector "${@:1}"

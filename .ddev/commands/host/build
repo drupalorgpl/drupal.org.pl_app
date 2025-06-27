@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# Include essentials file(s).
+source "${DDEV_APPROOT}/.ddev/commands/host/_bash/bash"
+
+# Start counting time from the script.
+ddev_start=$(date +%s)
+
+# Import database and files from local dump.
+run_and_check "ddev db-restore" "$@"
+run_and_check "ddev files-import" "$@"
+
+# Copy settings from build dir to app dir.
+run_and_check "cp -r ${DDEV_APPROOT}/.ddev/droptica/settings.php ${DDEV_APPROOT}/web/sites/default/settings.php"
+
+# Composer install with styles.
+run_and_check "ddev composer install" "$@"
+run_and_check "ddev theme" "$@"
+
+# Default build procedure.
+run_and_check "ddev drush deploy -y" "$@"
+
+# Update admin account.
+update_admin_account
+
+# Determinate time when script ended.
+ddev_end=$(date +%s)
+ddev_total=$((ddev_end - ddev_start))
+
+# Print last project info.
+printf "%s[%s] %sBuild completed in %s%s%s.\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "$(calc_time $ddev_total)" "${no_color}"
+printf "%s[%s] %sYou may now log-in with %saf_admin:123%s account.\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "${no_color}"
+printf "%s[%s] %sOpen it by clicking on this link %shttps://%s.%s:%s%s\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${link}" "${DDEV_SITENAME}" "${DDEV_TLD}" "${DDEV_ROUTER_HTTPS_PORT}" "${no_color}"

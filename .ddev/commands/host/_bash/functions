@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+
+# Function to convert seconds to time.
+function calc_time() {
+  # Receive the seconds as a string.
+  local seconds=$1
+
+  # Check how many seconds do we have.
+  if (( seconds > 60)); then
+    # Print minutes and seconds.
+    printf "%d min %d sec" $((seconds / 60)) $((seconds % 60))
+  else
+    # Print seconds.
+    printf "%d sec" "$((seconds % 60))"
+  fi
+}
+
+# Function to run and check the status of the command.
+function run_and_check() {
+  # Receive the command as a string
+  local command=$1
+
+  # Variables for current command.
+  local output=0;
+
+  # Process command-line options
+  while [[ $# -gt 1 ]]; do
+    case "$2" in
+      --output)
+        shift
+        output=1;
+        shift
+        ;;
+      *)
+        ;;
+    esac
+  done
+
+  # Create a temporary file to store the command output.
+  output_file=$(mktemp)
+
+  # Print current command so that the user can see what we are doing here.
+  printf "%s[%s] %sRunning: %s%s%s..." "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "$command" "${no_color}"
+
+  # Get the start time.
+  start_time=$(date +%s)
+
+  # Check if we have enabled output.
+  if [ "$output" -eq 1 ]; then
+    # Add new line so it will match the running command schema.
+    printf "\n"
+
+    # Execute the command without null.
+    eval "$command"
+  else
+    # Execute the command.
+    $command > "$output_file" 2>&1
+  fi
+
+  # Get the status code from the command
+  status=$?
+
+  # Get the end time.
+  end_time=$(date +%s)
+  elapsed_time=$((end_time - start_time))
+
+  # Check status code from previous command.
+  if [ $status != 0 ]; then
+    # Add info some errors that were detected.
+    printf "\r%s[%s] %sRunning: %s (failed in %s with status %s):%s%s\n" "${aqua}" "${DDEV_SITENAME_APP}" "${red}" "$command" "$(calc_time $elapsed_time)" "{$status}" "$(cat "$output_file")" "${no_color}"
+    printf "%s[%s] %sThere was an error while building project, check them before you can continue.%s\n" "${aqua}" "${DDEV_SITENAME_APP}" "${red}" "${no_color}"
+
+    # Remove the temporary file.
+    rm -f "$output_file"
+
+    # Skip running the script.
+    exit 0;
+  fi
+
+  # Print current command so that the user can see what we are doing here.
+  printf "\r%s[%s] %sRunning: %s%s%s %s(finished in %s)%s.\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "$command" "${no_color}" "${grey}" "$(calc_time $elapsed_time)" "${no_color}"
+
+  # Default cleanup.
+  rm -f "$output_file"
+}
+
+# Function to update admin account.
+function update_admin_account() {
+  # Add info what we are doing at the moment.
+  printf "%s[%s] %sEnabling %sadmin%s account...\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "${no_color}"
+
+  # Change admin password.
+  ddev drush upwd admin 123 -y &> /dev/null
+}

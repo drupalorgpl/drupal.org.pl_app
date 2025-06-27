@@ -1619,17 +1619,17 @@
         },
         {
             "name": "drupal/admin_toolbar",
-            "version": "3.6.0",
+            "version": "3.6.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/admin_toolbar.git",
-                "reference": "3.6.0"
+                "reference": "3.6.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/admin_toolbar-3.6.0.zip",
-                "reference": "3.6.0",
-                "shasum": "ee03fd8e5394525f6e0aaf19db75624fbefc5b5d"
+                "url": "https://ftp.drupal.org/files/projects/admin_toolbar-3.6.1.zip",
+                "reference": "3.6.1",
+                "shasum": "40e8874bdf100de90e0eec6984be14f0ec7765b0"
             },
             "require": {
                 "drupal/core": "^9.5 || ^10 || ^11"
@@ -1640,8 +1640,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "3.6.0",
-                    "datestamp": "1747981575",
+                    "version": "3.6.1",
+                    "datestamp": "1749079734",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -2663,17 +2663,17 @@
         },
         {
             "name": "drupal/eu_cookie_compliance",
-            "version": "1.26.0",
+            "version": "1.27.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/eu-cookie-compliance.git",
-                "reference": "8.x-1.26"
+                "reference": "8.x-1.27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/eu_cookie_compliance-8.x-1.26.zip",
-                "reference": "8.x-1.26",
-                "shasum": "4f251814019a14ae09e69d7436fec2cf0ae1b673"
+                "url": "https://ftp.drupal.org/files/projects/eu_cookie_compliance-8.x-1.27.zip",
+                "reference": "8.x-1.27",
+                "shasum": "c8293061df6748fb6fefd57affc751b39ce6470e"
             },
             "require": {
                 "drupal/core": "^8.9 || ^9 || ^10 || ^11"
@@ -2681,8 +2681,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.26",
-                    "datestamp": "1748453829",
+                    "version": "8.x-1.27",
+                    "datestamp": "1750814952",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -3323,17 +3323,17 @@
         },
         {
             "name": "drupal/linkit",
-            "version": "7.0.4",
+            "version": "7.0.5",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/linkit.git",
-                "reference": "7.0.4"
+                "reference": "7.0.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/linkit-7.0.4.zip",
-                "reference": "7.0.4",
-                "shasum": "cb112f26b1475f6857c9012880ec17f1636dd053"
+                "url": "https://ftp.drupal.org/files/projects/linkit-7.0.5.zip",
+                "reference": "7.0.5",
+                "shasum": "58baf9f76c46c73e02639ac79857889c52c46113"
             },
             "require": {
                 "drupal/core": "^10.1 || ^11"
@@ -3345,8 +3345,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "7.0.4",
-                    "datestamp": "1745413700",
+                    "version": "7.0.5",
+                    "datestamp": "1750458295",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -14989,6 +14989,6 @@
     "platform": {
         "php": ">=8.1"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }

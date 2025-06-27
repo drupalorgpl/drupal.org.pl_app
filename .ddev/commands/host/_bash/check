@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+
+# Make sure we always have colors included.
+source "${DDEV_APPROOT}/.ddev/commands/host/_bash/colors"
+
+# Function to check bash version.
+function check_bash_version() {
+  # Get the major and minor version numbers of Bash.
+  bash_version=$(bash --version | head -n 1 | awk '{print $4}')
+  major_version=$(echo "$bash_version" | cut -d '.' -f 1)
+  #minor_version=$(echo "$bash_version" | cut -d '.' -f 2) # uncomment if needed.
+
+  # Check if the Bash version is less than 5.x.
+  if (( major_version < 5 )); then
+    printf "%s[%s]%s Your Bash version is %s%s%s.\n" "${aqua}" "$DDEV_SITENAME" "${no_color}" "${red}" "$bash_version" "${no_color}"
+    printf "%s[%s]%s This project requires %srelease 5.x or higher%s.\n" "${aqua}" "$DDEV_SITENAME" "${no_color}" "${lime}" "${no_color}"
+
+    # Check if Homebrew is installed
+    if command -v brew &> /dev/null; then
+      # Ask the user if they want to update Bash using Homebrew.
+      printf "%s[%s]%s Do you want to update Bash automatically with Homebrew? (y/n): " "${aqua}" "$DDEV_SITENAME" "${no_color}"
+      read -r user_input
+
+      # Check user input before proceeding.
+      if [[ "$user_input" =~ ^[Yy]$ ]]; then
+        # Print proper message.
+        printf "%s[%s]%s Attempting to install/upgrade Bash...\n" "${aqua}" "$DDEV_SITENAME" "${no_color}"
+
+        # Print proper message homebrew.
+        printf "%s[%s]%s Homebrew is installed. Attempting to install/upgrade Bash...\n" "${aqua}" "$DDEV_SITENAME" "${no_color}"
+
+        # Install or upgrade Bash using Homebrew
+        brew install bash &> /dev/null || brew upgrade bash &> /dev/null
+
+        # Verify if Bash was upgraded successfully
+        bash_version=$(bash --version | head -n 1 | awk '{print $4}')
+        major_version=$(echo "$bash_version" | cut -d '.' -f 1)
+        #minor_version=$(echo "$bash_version" | cut -d '.' -f 2) # uncomment if needed.
+
+        # Check the version again.
+        if (( major_version >= 5 )); then
+          # If we have bash installed print proper message.
+          printf "%s[%s]%s Bash was successfully upgraded to version %s%s%s.\n" "${aqua}" "$DDEV_SITENAME" "${no_color}" "${lime}" "$bash_version" "${no_color}"
+          printf "%s[%s]%s Please re-run the command or restart your terminal to apply changes.\n" "${aqua}" "$DDEV_SITENAME" "${no_color}"
+        else
+          # If it fails print proper message.
+          printf "%s[%s]%s Bash upgrade failed. Please try manually.\n" "${aqua}" "$DDEV_SITENAME" "${no_color}"
+        fi
+      else
+        # Print proper message.
+        printf "%s[%s]%s Bash update canceled by the user.\n" "${aqua}" "$DDEV_SITENAME" "${no_color}"
+      fi
+    else
+      # Get current OS type.
+      OS_TYPE=$(uname)
+
+      # Different type of MacOS users.
+      if [[ "$OS_TYPE" == "Darwin"* ]]; then
+        # If Homebrew is not installed print proper message.
+        printf "%s[%s]%s Homebrew is not installed. Please install Homebrew and try again.\n" "${aqua}" "$DDEV_SITENAME" "${no_color}"
+        printf "%s[%s]%s If you are that type of person who don't want Homebrew installed upgrade Bash manually.\n" "${aqua}" "$DDEV_SITENAME" "${no_color}"
+      else
+        # If Homebrew is not installed print proper message.
+        printf "%s[%s]%s You are using %s%s%s OS, this script was not created to automate this OS.\n" "${aqua}" "$DDEV_SITENAME" "${no_color}" "${lime}" "${OS_TYPE}" "${no_color}"
+        printf "%s[%s]%s Please search for the bash version upgrade article for your OS and run this command again.\n" "${aqua}" "$DDEV_SITENAME" "${no_color}"
+      fi
+    fi
+
+    # In all cases quit.
+    exit 0;
+  fi
+}
+
+# Check bash version before running this script.
+check_bash_version

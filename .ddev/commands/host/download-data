@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+# Include essentials file(s).
+source "${DDEV_APPROOT}/.ddev/commands/host/_bash/bash"
+
+# Start counting time from the script.
+ddev_start=$(date +%s)
+
+# Download database.
+run_and_check "scp devh-01.droptica.org:/opt/internal/drupal.org.pl/db/database.sql.gz ${DDEV_APPROOT}/.ddev/droptica/db"
+
+# Print message about re-packing database.
+printf "%s[%s] %sRunning: %sProcess to change gz file to tar.gz for DDEV to support it%s\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "${no_color}"
+
+# Remove current database if exists.
+rm -f "${DDEV_APPROOT}/.ddev/droptica/db/database.sql"
+
+# Unpack that database.
+gzip -d "${DDEV_APPROOT}/.ddev/droptica/db/database.sql.gz"
+
+# Pack database to .tar.gz.
+tar -zcvf "${DDEV_APPROOT}/.ddev/droptica/db/database.sql.tar.gz" -C "${DDEV_APPROOT}/.ddev/droptica/db" database.sql &> /dev/null
+
+# Remove current database if exists.
+rm -f "${DDEV_APPROOT}/.ddev/droptica/db/database.sql"
+
+# Download files (the private files are simply placeholder, if you wish to download original one add _original before .tar.gz).
+run_and_check "scp devh-01.droptica.org:/opt/internal/drupal.org.pl/files/files.tar.gz ${DDEV_APPROOT}/.ddev/droptica/files/files.tar.gz"
+run_and_check "scp devh-01.droptica.org:/opt/internal/drupal.org.pl/files/private.tar.gz ${DDEV_APPROOT}/.ddev/droptica/files/private_files.tar.gz"
+
+# Determinate time when script ended.
+ddev_end=$(date +%s)
+ddev_total=$((ddev_end - ddev_start))
+
+# Print last project info.
+printf "%s[%s] %sProject files downloaded in %s%s%s.\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "$(calc_time $ddev_total)" "${no_color}"

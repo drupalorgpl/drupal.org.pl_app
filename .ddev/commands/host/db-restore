@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+
+# Include essentials file(s).
+source "${DDEV_APPROOT}/.ddev/commands/host/_bash/bash"
+
+# File paths.
+FROM_PATH="${DDEV_APPROOT}/.ddev/droptica/db"
+
+# Add info about restoring.
+printf "%s[%s] %sRestoring %sdatabase%s...\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "${no_color}"
+
+# Check if users passed one argument.
+if [ "$#" -ne 1 ]; then
+  # Find any file starting with "database" and followed by any allowed extension.
+  DB_FILE=$(find "${FROM_PATH}" -type f \( \
+      -name "database*.sql" -o \
+      -name "database*.tar" -o \
+      -name "database*.tar.gz" -o \
+      -name "database*.tar.bz2" -o \
+      -name "database*.tar.xz" -o \
+      -name "database*.tgz" -o \
+      -name "database*.zip" \
+  \) | head -n 1)
+
+  # Check for any file starting with "database" regardless of extension.
+  ANY_DB_FILE=$(find "${FROM_PATH}" -type f -name "database*" | head -n 1)
+
+  # Check if we have found any database.
+  if [ -n "$DB_FILE" ]; then
+    # Add info about non-existing files.
+    printf "%s[%s] %sUsing %s%s%s file, starting import...\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "$(basename "$DB_FILE")" "${no_color}"
+
+    # If so, restore it.
+    ddev import-db --database=db --file="${DB_FILE}"
+  elif [ -n "$ANY_DB_FILE" ]; then
+    # Add info about not-supported extension files.
+    printf "%s[%s] %sWe've found %s%s%s file, but it doesn't have a supported extension, skipping db-restore...\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "$(basename "$ANY_DB_FILE")" "${no_color}"
+    printf "%s[%s] %sSupported extension are: %s.sql, .tar, .tar.gz, .tar.bz2, .tar.xz, .tgz %sor%s .zip%s\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "${no_color}" "${lime}" "${no_color}"
+    exit;
+  else
+    # Add info about non-existing files.
+    printf "%s[%s] %sWe couldn't find any database file, skipping db-restore...\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}"
+    exit;
+  fi
+else
+  # If user did pass one argument, check if that file exists.
+  if [ -f "${FROM_PATH}/$1" ]; then
+    # Restore .sql from local dump.
+    ddev import-db --database=db --file="${FROM_PATH}"/"$1"
+  else
+    # Add info about non-existing files.
+    printf "%s[%s] %sWe couldn't find '%s' database file%s!\n" "${aqua}" "${DDEV_SITENAME_APP}" "${red}" "$1" "${no_color}"
+
+    # Skip rest of the code.
+    exit 1;
+  fi
+fi
+
+# Get status code from current command.
+status=$?
+
+# Check status code from previous command.
+if [ $status != 0 ]; then
+  # Add info some errors that were detected.
+  printf "%s[%s] %sThere was an error in the db-import, check them before you can continue.%s\n" "${aqua}" "${DDEV_SITENAME_APP}" "${red}" "${no_color}"
+
+  # Return error for other scripts to handle.
+  exit 1;
+fi
+
+# Add ending info about db import status.
+printf "%s[%s] %sSuccessfully restored %sdatabase%s!\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "${no_color}"

@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+# Include essentials file(s).
+source "${DDEV_APPROOT}/.ddev/commands/host/_bash/bash"
+
+# Start counting time from the script.
+ddev_start=$(date +%s)
+
+# Print last project info.
+printf "%s[%s] %sStarting PHP-CS standards...\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}"
+
+# Create a temporary file to store the command output.
+OUTPUT_FILE=$(mktemp)
+
+# Prepare variables
+PHPCS_STANDARD="./phpcs.xml"
+PHPCS_DIRECTORIES="/app/web/modules/custom /app/web/themes/custom"
+#PHPCS_STANDARD_TESTS=PSR12
+#PHPCS_DIRECTORIES_TESTS="/app/tests"
+
+# Run PHP-CS standards.
+docker run --platform linux/amd64 --pull always --rm -t -v "${DDEV_APPROOT}":/app droptica/phpcs:latest phpcs --standard=${PHPCS_STANDARD} ${PHPCS_DIRECTORIES} > "$OUTPUT_FILE" 2>&1
+#docker run --platform linux/amd64 --pull always --rm -t -v "${DDEV_APPROOT}"/.ddev/tests:/app droptica/phpcs:latest phpcs  --standard=${PHPCS_STANDARD_TESTS} --extensions=php,yml --report=full,gitblame ${PHPCS_DIRECTORIES_TESTS} > "$OUTPUT_FILE" 2>&1
+
+# Get the status code from the command
+STATUS=$?
+
+# Determinate time when script ended.
+ddev_end=$(date +%s)
+ddev_total=$((ddev_end - ddev_start))
+
+# Check status code from previous command.
+if [ $STATUS != 0 ]; then
+  # Add info some errors that were detected.
+  printf "%s[%s] %sFailed in %s (with status %s):\n%s%s\n" "${aqua}" "${DDEV_SITENAME_APP}" "${red}" "$(calc_time $ddev_total)" "$STATUS" "${no_color}" "$(cat "$OUTPUT_FILE")"
+else
+  # Print project info.
+  printf "%s[%s] %sStandards completed in %s%s%s.\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "$(calc_time $ddev_total)" "${no_color}"
+  printf "%s[%s] %sPHP-CS didn't found any issues within this project.\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}"
+fi
+
+# Remove the temporary file.
+rm -f "$OUTPUT_FILE"

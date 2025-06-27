@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+# Include essentials file(s).
+source "${DDEV_APPROOT}/.ddev/commands/host/_bash/bash"
+
+# Start counting time from the script.
+ddev_start=$(date +%s)
+
+# Print last project info.
+printf "%s[%s] %sRunning PHP-Stan analyse...\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}"
+
+# Create a temporary file to store the command output.
+OUTPUT_FILE=$(mktemp)
+
+# Run PHP-Stan analyse.
+ddev exec "phpstan analyse -c ./phpstan.neon --no-progress" > "$OUTPUT_FILE" 2>&1
+
+# Get the status code from the command
+STATUS=$?
+
+# Determinate time when script ended.
+ddev_end=$(date +%s)
+ddev_total=$((ddev_end - ddev_start))
+
+# Check status code from previous command.
+if [ $STATUS != 0 ]; then
+  # Add info some errors that were detected.
+  printf "%s[%s] %sFailed in %s (with status %s):\n%s%s\n" "${aqua}" "${DDEV_SITENAME_APP}" "${red}" "$(calc_time $ddev_total)" "$STATUS" "${no_color}" "$(cat "$OUTPUT_FILE")"
+else
+  # Print project info.
+  printf "%s[%s] %sAnalysis completed in %s%s%s.\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "$(calc_time $ddev_total)" "${no_color}"
+  printf "%s[%s] %sPHP-Stan didn't found any issues within this project.\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}"
+fi
+
+# Remove the temporary file.
+rm -f "$OUTPUT_FILE"

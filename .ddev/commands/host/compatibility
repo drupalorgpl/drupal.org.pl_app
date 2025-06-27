@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+# Include essentials file(s).
+source "${DDEV_APPROOT}/.ddev/commands/host/_bash/bash"
+
+# Check number of arguments.
+if [ "$#" -lt 2 ]; then
+  # Print proper usage of this command.
+  printf "%s[%s] %sUsage: %sddev compatibility <php version> <directories>\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}"
+  printf "%s[%s] %sExample: %sddev compatibility 8.3 web/modules/custom web/themes/custom\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${grey}"
+  exit 1
+fi
+
+# Get PHP version from the first argument.
+VERSION="$1"
+
+# Skip the first argument.
+shift
+
+# Get all of the rest arguments as paths.
+DIRECTORY="$@"
+
+# Start counting time from the script.
+ddev_start=$(date +%s)
+
+# Print last project info.
+printf "%s[%s] %sStarting COMPATIBILITY with PHP %s%s%s for directories %s%s%s...\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "${VERSION}" "${no_color}" "${lime}" "${DIRECTORY}" "${no_color}"
+
+# Create a temporary file to store the command output.
+OUTPUT_FILE=$(mktemp)
+
+# Begin script in case all parameters are correct
+FIND="find $DIRECTORY -name '*.php' -or -name '*.module' -or -name '*.install' -or -name '*.theme' -or -name '*.inc' -or -name '*.profile'"
+
+# Print info about the next step.
+printf "%s[%s] %sRunning syntax-check on all files with %sphp, module, install, theme, inc%s and%s profile%s extension...\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "${no_color}" "${lime}" "${no_color}"
+
+# Run the syntax check on all of the files with given extensions.
+docker run --platform linux/amd64 --rm -ti -w "/opt/project" -v "${DDEV_APPROOT}":/opt/project php:"$VERSION" bash -c "$FIND | xargs -n1 /usr/local/bin/php --syntax-check"
+
+# Print info about the next step.
+printf "%s[%s] %sRunning compatibility check within given directories...\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}"
+
+# shellcheck disable=SC2086
+# Run the compatibility check (shellcheck is needed to be pass as it is to the arguments because we need multiple directories not only one with " thingy)
+docker run --rm -ti -w "/opt/project" -v "${DDEV_APPROOT}":/opt/project droptica/compatibility:latest phpcs --ignore=*.js,*.css -p $DIRECTORY --standard=PHPCompatibility --runtime-set testVersion "$VERSION" --report=code > "$OUTPUT_FILE" 2>&1
+
+# Get the status code from the command
+STATUS=$?
+
+# Determinate time when script ended.
+ddev_end=$(date +%s)
+ddev_total=$((ddev_end - ddev_start))
+
+# Check status code from previous command.
+if [ $STATUS != 0 ]; then
+  # Add info some errors that were detected.
+  printf "%s[%s] %sFailed in %s (with status %s):\n%s%s\n" "${aqua}" "${DDEV_SITENAME_APP}" "${red}" "$(calc_time $ddev_total)" "$STATUS" "${no_color}" "$(cat "$OUTPUT_FILE")"
+else
+  # Print project info.
+  printf "%s[%s] %sCompatibility check completed in %s%s%s.\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "$(calc_time $ddev_total)" "${no_color}"
+  printf "%s[%s] %sScript didn't found any issues for PHP %s%s%s for %s%s%s.\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "${VERSION}" "${no_color}" "${lime}" "${DIRECTORY}" "${no_color}"
+fi
+
+# Remove the temporary file.
+rm -f "$OUTPUT_FILE"
