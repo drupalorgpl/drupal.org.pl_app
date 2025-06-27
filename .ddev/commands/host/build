@@ -29,5 +29,5 @@ ddev_total=$((ddev_end - ddev_start))
 
 # Print last project info.
 printf "%s[%s] %sBuild completed in %s%s%s.\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "$(calc_time $ddev_total)" "${no_color}"
-printf "%s[%s] %sYou may now log-in with %saf_admin:123%s account.\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "${no_color}"
+printf "%s[%s] %sYou may now log-in with %sadmin:123%s account.\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "${no_color}"
 printf "%s[%s] %sOpen it by clicking on this link %shttps://%s.%s:%s%s\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${link}" "${DDEV_SITENAME}" "${DDEV_TLD}" "${DDEV_ROUTER_HTTPS_PORT}" "${no_color}"
