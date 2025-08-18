@@ -14,8 +14,8 @@ php_version: '8.3'
 webserver_type: nginx-fpm
 
 # Exposed ports for router.
-router_http_port: '8000'
-router_https_port: '8443'
+router_http_port: '80'
+router_https_port: '443'
 
 # Additional hostnames.
 additional_hostnames:
@@ -42,7 +42,7 @@ database:
 # Determinate if FQDN should be accessible from the web (true if not).
 use_dns_when_possible: false
 
-# Add extra webimage packages.
+# Add extra web-image packages.
 webimage_extra_packages: [python3, make]
 
 # Web envs.

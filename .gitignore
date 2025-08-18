@@ -15,6 +15,7 @@
 /web/*.php
 /web/web.config
 /web/robots.txt
+*.lock
 
 # Ignore sensitive information
 database.sql
