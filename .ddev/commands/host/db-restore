@@ -11,32 +11,16 @@ printf "%s[%s] %sRestoring %sdatabase%s...\n" "${aqua}" "${DDEV_SITENAME_APP}" "
 
 # Check if users passed one argument.
 if [ "$#" -ne 1 ]; then
-  # Find any file starting with "database" and followed by any allowed extension.
-  DB_FILE=$(find "${FROM_PATH}" -type f \( \
-      -name "database*.sql" -o \
-      -name "database*.tar" -o \
-      -name "database*.tar.gz" -o \
-      -name "database*.tar.bz2" -o \
-      -name "database*.tar.xz" -o \
-      -name "database*.tgz" -o \
-      -name "database*.zip" \
-  \) | head -n 1)
-
-  # Check for any file starting with "database" regardless of extension.
-  ANY_DB_FILE=$(find "${FROM_PATH}" -type f -name "database*" | head -n 1)
+  # Find any file starting with "database" and sort if by time.
+  DB_FILE=$(find "${FROM_PATH}" -type f -name "database*" -exec ls -t {} + 2>/dev/null | head -n1)
 
   # Check if we have found any database.
   if [ -n "$DB_FILE" ]; then
-    # Add info about non-existing files.
+    # Add info about which file is being used.
     printf "%s[%s] %sUsing %s%s%s file, starting import...\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "$(basename "$DB_FILE")" "${no_color}"
 
-    # If so, restore it.
+    # Then simply restore the latest database dump.
     ddev import-db --database=db --file="${DB_FILE}"
-  elif [ -n "$ANY_DB_FILE" ]; then
-    # Add info about not-supported extension files.
-    printf "%s[%s] %sWe've found %s%s%s file, but it doesn't have a supported extension, skipping db-restore...\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "$(basename "$ANY_DB_FILE")" "${no_color}"
-    printf "%s[%s] %sSupported extension are: %s.sql, .tar, .tar.gz, .tar.bz2, .tar.xz, .tgz %sor%s .zip%s\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}" "${lime}" "${no_color}" "${lime}" "${no_color}"
-    exit;
   else
     # Add info about non-existing files.
     printf "%s[%s] %sWe couldn't find any database file, skipping db-restore...\n" "${aqua}" "${DDEV_SITENAME_APP}" "${no_color}"
