@@ -11,11 +11,11 @@ mkdir -p "${DDEV_APPROOT}/.ddev/droptica/db"
 mkdir -p "${DDEV_APPROOT}/.ddev/droptica/files"
 
 # Download database.
-run_and_check "scp devh-01.droptica.org:/opt/internal/drupal.org.pl/db/database.sql.gz ${DDEV_APPROOT}/.ddev/droptica/db"
+run_and_check "scp devh-01.dptsys.net:/opt/internal/drupal.org.pl/db/database.sql.gz ${DDEV_APPROOT}/.ddev/droptica/db"
 
 # Download files (the private files are simply placeholder, if you wish to download original one add _original before .tar.gz).
-run_and_check "scp devh-01.droptica.org:/opt/internal/drupal.org.pl/files/files.tar.gz ${DDEV_APPROOT}/.ddev/droptica/files/files.tar.gz"
-run_and_check "scp devh-01.droptica.org:/opt/internal/drupal.org.pl/files/private.tar.gz ${DDEV_APPROOT}/.ddev/droptica/files/private_files.tar.gz"
+run_and_check "scp devh-01.dptsys.net:/opt/internal/drupal.org.pl/files/files.tar.gz ${DDEV_APPROOT}/.ddev/droptica/files/files.tar.gz"
+run_and_check "scp devh-01.dptsys.net:/opt/internal/drupal.org.pl/files/private.tar.gz ${DDEV_APPROOT}/.ddev/droptica/files/private_files.tar.gz"
 
 # Determinate time when script ended.
 ddev_end=$(date +%s)
