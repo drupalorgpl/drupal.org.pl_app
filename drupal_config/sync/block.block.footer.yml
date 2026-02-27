@@ -2,6 +2,10 @@ uuid: 1b292b66-743f-43d0-bc30-b97f4c7c33ee
 langcode: pl
 status: true
 dependencies:
+  content:
+    - 'block_content:content_block:092dd69e-c6c4-4f0a-9780-ec15b89ec5b5'
+  module:
+    - block_content
   theme:
     - droopler_subtheme
 _core:
@@ -17,7 +21,5 @@ settings:
   label: Footer
   label_display: '0'
   provider: block_content
-  status: true
-  info: ''
   view_mode: full
 visibility: {  }
