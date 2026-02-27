@@ -1,0 +1,24 @@
+--- core.libraries.yml
++++ core.libraries.yml
+@@ -822,10 +822,10 @@ internal.floating-ui:
+ 
+ jquery:
+   remote: https://github.com/jquery/jquery
+-  version: "4.0.0-rc.1"
++  version: "3.7.1"
+   license:
+     name: MIT
+-    url: https://raw.githubusercontent.com/jquery/jquery/4.0.0-rc.1/LICENSE.txt
++    url: https://raw.githubusercontent.com/jquery/jquery/3.7.1/LICENSE.txt
+     gpl-compatible: true
+   js:
+     # jquery.min.js is explicitly set to preprocess: false to prevent its
+@@ -833,7 +833,7 @@ jquery:
+     # across different aggregates which can include different combinations of
+     # libraries that depend on jQuery, so that it is only downloaded once per
+     # browser instead of potentially multiple times from different pages.
+-    assets/vendor/jquery/jquery.min.js: { preprocess: false, minified: true, weight: -20 }
++    assets/vendor/jquery/jquery-3.7.1.min.js: { preprocess: false, minified: true, weight: -20 }
+ 
+ internal.jquery.form:
+   # Internal library. Do not depend on it outside core nor add new core usage.
