@@ -87,6 +87,9 @@
         "patches": {
             "drupal/core": {
                 "Core: Keep jQuery 3.x compatibility": "patches/core/jquery_3x_compatibility.patch"
+            },
+            "drush/drush": {
+                "Fix PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT constant issue": "patches/drush/mysql_ssl_verify_server_cert_fix.patch"
             }
         }
     }
