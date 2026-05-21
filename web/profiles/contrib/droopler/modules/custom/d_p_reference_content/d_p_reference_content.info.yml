@@ -1,0 +1,18 @@
+name: 'Droopler Reference Content Paragraph'
+type: module
+core_version_requirement: ^10 || ^11
+dependencies:
+  - 'droopler:d_media'
+  - 'droopler:d_p'
+  - 'drupal:field'
+  - 'drupal:link'
+  - 'drupal:media_library'
+  - 'drupal:node'
+  - 'drupal:text'
+  - 'field_group:field_group'
+  - 'link_attributes:link_attributes'
+  - 'paragraphs:paragraphs'
+version: DROOPLER_VERSION
+package: 'Droopler Paragraphs'
+core_incompatible: false
+description: 'Provides a paragraph with a list of nodes.'
