@@ -14,8 +14,8 @@ definitions:
     expanded: false
     enabled: true
   d_demo__engines:
-    enabled: false
     menu_name: main
     parent: ''
-    expanded: false
     weight: 0
+    expanded: false
+    enabled: false
