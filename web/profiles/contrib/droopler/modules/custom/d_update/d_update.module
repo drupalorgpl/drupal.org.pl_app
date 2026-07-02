@@ -1,0 +1,66 @@
+<?php
+
+/**
+ * @file
+ * Procedural shim for the d_update module.
+ *
+ * Hook implementations live in \Drupal\d_update\Hook\Hooks.
+ * The one remaining function below — `d_update_checklistapi_checklist_items()`
+ * — must stay a global procedural function because the checklistapi module
+ * resolves the `#callback` array key through `function_exists()`, which
+ * does not accept class-callable arrays.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Url;
+use Drupal\d_update\Entity\Update;
+use Symfony\Component\Yaml\Yaml;
+
+/**
+ * Callback for the d_update checklistapi checklist.
+ *
+ * Reads `updates.yml`, hydrates each entry with success/failure descriptions
+ * sourced from the Update entity, and normalises URLs / translatable strings.
+ *
+ * @return array<string, array<string, mixed>>
+ *   Version-keyed checklist definition, newest first.
+ *
+ * @see \Drupal\d_update\Hook\Hooks::checklistapiChecklistInfo()
+ */
+function d_update_checklistapi_checklist_items(): array {
+  $tasks = Yaml::parse(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'updates.yml'));
+
+  foreach ($tasks as $version => $updates) {
+    foreach ($updates as $key => $update) {
+      if (!is_array($update)) {
+        continue;
+      }
+      $entry = Update::load($key);
+      $status = $entry instanceof Update && $entry->wasSuccessfulByHook();
+      if ($status && !empty($update['#description_successful'])) {
+        $tasks[$version][$key]['#description'] .= $update['#description_successful'];
+        continue;
+      }
+      if (!$status && !empty($update['#description_failed'])) {
+        $tasks[$version][$key]['#description'] .= $update['#description_failed'];
+      }
+    }
+  }
+
+  array_walk_recursive($tasks, static function (&$value, $key): void {
+    if ($key === '#url') {
+      $value = Url::fromUri($value);
+      if ($value->isExternal()) {
+        $value->setOption('attributes', ['target' => '_blank']);
+      }
+      return;
+    }
+    if (in_array($key, ['#title', '#weight'], TRUE)) {
+      // phpcs:ignore Drupal.Semantics.FunctionT.NotLiteralString
+      $value = t($value);
+    }
+  });
+
+  return array_reverse($tasks);
+}

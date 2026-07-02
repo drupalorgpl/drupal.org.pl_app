@@ -1,0 +1,7 @@
+{
+    "name": "drupal/geysir",
+    "dependencies": {
+        "drupal/entity": "*",
+        "drupal/paragraphs": "*"
+    }
+}
