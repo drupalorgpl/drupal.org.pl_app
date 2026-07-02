@@ -49,7 +49,7 @@ register_admin_created:
 
     --  [site:name] team
 register_no_approval_required:
-  subject: 'Account details for [user:display-name] at [site:name]'
+  subject: 'Szczegóły konta użytkownika [user:display-name] na [site:name]'
   body: |-
     [user:display-name],
 

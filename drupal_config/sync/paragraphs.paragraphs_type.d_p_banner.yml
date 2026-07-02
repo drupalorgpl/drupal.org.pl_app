@@ -5,7 +5,7 @@ dependencies: {  }
 _core:
   default_config_hash: am20M9-PufxaKH1cltdxSFfJCas8m2dD_g2TqUhc50g
 id: d_p_banner
-label: Banner
+label: Baner
 icon_uuid: null
 icon_default: null
 description: 'A banner with background, icon, text and CTA.'

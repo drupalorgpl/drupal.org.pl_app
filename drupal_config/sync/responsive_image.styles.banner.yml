@@ -12,7 +12,7 @@ dependencies:
 _core:
   default_config_hash: IHPu6uzSdu2yGcsLmnCde5VuNzDCN5IhmEIy_N5Zfdc
 id: banner
-label: Banner
+label: Baner
 image_style_mappings:
   -
     image_mapping_type: image_style

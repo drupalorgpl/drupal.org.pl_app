@@ -8,14 +8,14 @@ definitions:
     expanded: false
     enabled: true
   d__blog__d__blog:
+    weight: -46
     menu_name: main
     parent: ''
-    weight: -48
     expanded: false
     enabled: true
   d_demo__engines:
+    weight: -43
     menu_name: main
     parent: ''
-    weight: 0
     expanded: false
     enabled: false

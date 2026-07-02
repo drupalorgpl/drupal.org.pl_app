@@ -93,7 +93,7 @@ content:
     region: content
     settings:
       title: Counter
-      title_plural: Counters
+      title_plural: Liczniki
       edit_mode: closed
       add_mode: dropdown
       form_display_mode: default

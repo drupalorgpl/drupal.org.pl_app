@@ -23,10 +23,10 @@
         "php": ">=8.1",
         "composer/installers": "^2.3",
         "cweagans/composer-patches": "^1.7",
-        "droptica/droopler": "^3.5",
-        "drupal/core": "^11.1",
-        "drupal/core-composer-scaffold": "^11.1",
-        "drupal/core-recommended": "^11.1",
+        "droptica/droopler": "^3.6",
+        "drupal/core": "^11.4",
+        "drupal/core-composer-scaffold": "^11.4",
+        "drupal/core-recommended": "^11.4",
         "drupal/devel": "^5.0",
         "drupal/entity": "^1.6",
         "drupal/eu_cookie_compliance": "^1.25",
@@ -50,17 +50,18 @@
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "mglaman/composer-drupal-lenient": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true,
             "composer/installers": true,
             "cweagans/composer-patches": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
             "drupal/console-extend-plugin": true,
             "drupal/core-composer-scaffold": true,
+            "mglaman/composer-drupal-lenient": true,
             "oomphinc/composer-installers-extender": true,
-            "zaporylie/composer-drupal-optimizations": true,
-            "phpstan/extension-installer": true,
             "php-http/discovery": true,
-            "tbachert/spi": true
+            "phpstan/extension-installer": true,
+            "symfony/runtime": true,
+            "tbachert/spi": true,
+            "zaporylie/composer-drupal-optimizations": true
         }
     },
     "extra": {
@@ -85,11 +86,15 @@
             "web/themes/custom/{$name}": ["type:drupal-custom-theme"]
         },
         "patches": {
-            "drupal/core": {
-                "Core: Keep jQuery 3.x compatibility": "patches/core/jquery_3x_compatibility.patch"
+            "droptica/droopler": {
+                "d_p - apply default setting classes to paragraphs with empty field_d_settings": "patches/droopler/d_p_apply_default_setting_classes.patch"
             },
-            "drush/drush": {
-                "Fix PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT constant issue": "patches/drush/mysql_ssl_verify_server_cert_fix.patch"
+            "symfony/http-foundation": {
+                "Add fallback ip address": "patches/symfony/http_foundation_ip_proxy.patch"
+            },
+            "drupal/svg_image": {
+                "#3592477 - Fix $fileUrlGenerator fatal error": "https://www.drupal.org/files/issues/2026-07-02/svg_image_62.patch",
+                "D11.4 - #item_attributes deprecated, use #attributes": "patches/svg_image/item_attributes_d11.4.patch"
             }
         }
     }

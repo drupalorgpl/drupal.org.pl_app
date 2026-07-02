@@ -13,7 +13,7 @@ id: paragraph.d_p_side_image.field_d_long_text
 field_name: field_d_long_text
 entity_type: paragraph
 bundle: d_p_side_image
-label: 'Long text'
+label: 'Długi tekst'
 description: ''
 required: false
 translatable: true

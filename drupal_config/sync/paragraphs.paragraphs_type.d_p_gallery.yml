@@ -5,7 +5,7 @@ dependencies: {  }
 _core:
   default_config_hash: 1fsfn_fiN2WXH3C4U-wiSKQpZIpipeBBg9P5VvY01jM
 id: d_p_gallery
-label: Gallery
+label: Galeria
 icon_uuid: null
 icon_default: null
 description: 'Simple gallery paragraph with Colorbox support and no pagination.'
