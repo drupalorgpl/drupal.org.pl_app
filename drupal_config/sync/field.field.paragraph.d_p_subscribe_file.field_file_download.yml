@@ -13,7 +13,7 @@ id: paragraph.d_p_subscribe_file.field_file_download
 field_name: field_file_download
 entity_type: paragraph
 bundle: d_p_subscribe_file
-label: 'File download'
+label: 'Pobieranie pliku'
 description: ''
 required: true
 translatable: true

@@ -1,0 +1,13 @@
+diff --git a/IpUtils.php b/IpUtils.php
+index 18b1c5f..b5f4fc9 100644
+--- a/IpUtils.php
++++ b/IpUtils.php
+@@ -56,7 +56,7 @@ class IpUtils
+         $method = substr_count($requestIp, ':') > 1 ? 'checkIp6' : 'checkIp4';
+ 
+         foreach ($ips as $ip) {
+-            if (self::$method($requestIp, $ip)) {
++            if (self::$method($requestIp, $ip ?? '127.0.0.1')) {
+                 return true;
+             }
+         }

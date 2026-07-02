@@ -98,3 +98,17 @@ function d_application_update_8005() {
     $modules = ['d_application_api', 'system_status'];
     \Drupal::service('module_installer')->uninstall($modules, TRUE);
 }
+
+/**
+ * Remove orphaned schema entries for modules missing from the codebase.
+ */
+function d_application_update_8006() {
+  $orphaned = [
+    'advagg',
+    'advagg_css_minify',
+    'advagg_js_minify',
+    'advagg_mod',
+    'system_status',
+  ];
+  \Drupal::keyValue('system.schema')->deleteMultiple($orphaned);
+}

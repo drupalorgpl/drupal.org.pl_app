@@ -136,8 +136,8 @@ content:
     weight: 4
     region: content
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: Akapit
+      title_plural: Akapity
       edit_mode: closed
       add_mode: dropdown
       form_display_mode: default

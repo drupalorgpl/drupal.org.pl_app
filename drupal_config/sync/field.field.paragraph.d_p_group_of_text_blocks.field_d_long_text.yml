@@ -13,7 +13,7 @@ id: paragraph.d_p_group_of_text_blocks.field_d_long_text
 field_name: field_d_long_text
 entity_type: paragraph
 bundle: d_p_group_of_text_blocks
-label: 'Long text'
+label: 'Długi tekst'
 description: ''
 required: false
 translatable: true

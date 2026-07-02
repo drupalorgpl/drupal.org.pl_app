@@ -340,8 +340,8 @@ display:
           hide_alter_empty: true
           type: timestamp_ago
           settings:
-            future_format: '@interval hence'
-            past_format: '@interval ago'
+            future_format: 'odtąd co @interval'
+            past_format: '@interval temu'
             granularity: 2
         operations:
           id: operations

@@ -5,7 +5,7 @@ dependencies: {  }
 _core:
   default_config_hash: HqWcQ95GiuBxR_8Hx_eRv1ZLOvMGfO2mjsSgBr5vHOw
 id: d_document
-label: Document
+label: Dokument
 description: 'Document added from file.'
 source: file
 queue_thumbnail_downloads: false

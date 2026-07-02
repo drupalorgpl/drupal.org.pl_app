@@ -1,0 +1,16 @@
+diff --git a/src/Plugin/Field/FieldFormatter/SvgImageFormatterTrait.php b/src/Plugin/Field/FieldFormatter/SvgImageFormatterTrait.php
+index ec7a986..291a648 100644
+--- a/src/Plugin/Field/FieldFormatter/SvgImageFormatterTrait.php
++++ b/src/Plugin/Field/FieldFormatter/SvgImageFormatterTrait.php
+@@ -127,7 +127,10 @@ trait SvgImageFormatterTrait {
+     // the image style.
+     $element['#theme'] = 'image_formatter';
+     $element['#image_style'] = NULL;
+-    $element['#item_attributes'] += $attributes;
++    // Drupal 11.4 deprecated #item_attributes in favour of #attributes and no
++    // longer initialises it, so merge into whichever key core provides.
++    $key = array_key_exists('#attributes', $element) ? '#attributes' : '#item_attributes';
++    $element[$key] = ($element[$key] ?? []) + $attributes;
+     if ($cacheTags) {
+       $element['#cache']['tags'] = Cache::mergeTags(
+         $element['#cache']['tags'],

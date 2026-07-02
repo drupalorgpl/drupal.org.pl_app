@@ -31,7 +31,7 @@ xdebug_enabled: false
 timezone: Europe/Warsaw
 
 # Composer & nodejs versions.
-nodejs_version: '18'
+nodejs_version: '24'
 composer_version: '2'
 
 # Database version.

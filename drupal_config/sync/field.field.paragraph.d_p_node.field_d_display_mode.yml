@@ -13,7 +13,7 @@ id: paragraph.d_p_node.field_d_display_mode
 field_name: field_d_display_mode
 entity_type: paragraph
 bundle: d_p_node
-label: 'Display mode'
+label: 'Tryb wyświetlania'
 description: ''
 required: true
 translatable: false
