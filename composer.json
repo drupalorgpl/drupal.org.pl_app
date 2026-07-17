@@ -86,15 +86,8 @@
             "web/themes/custom/{$name}": ["type:drupal-custom-theme"]
         },
         "patches": {
-            "droptica/droopler": {
-                "d_p - apply default setting classes to paragraphs with empty field_d_settings": "patches/droopler/d_p_apply_default_setting_classes.patch"
-            },
             "symfony/http-foundation": {
                 "Add fallback ip address": "patches/symfony/http_foundation_ip_proxy.patch"
-            },
-            "drupal/svg_image": {
-                "#3592477 - Fix $fileUrlGenerator fatal error": "https://www.drupal.org/files/issues/2026-07-02/svg_image_62.patch",
-                "D11.4 - #item_attributes deprecated, use #attributes": "patches/svg_image/item_attributes_d11.4.patch"
             }
         }
     }
