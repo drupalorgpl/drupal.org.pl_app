@@ -1,0 +1,41 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Drupal\{{ machine_name }}\Hook;
+
+use Drupal\Core\Hook\Attribute\Hook;
+{% if preprocess %}
+use Drupal\d_p\Helper\ParagraphSettingsAccessor;
+{% endif %}
+
+/**
+ * Hook implementations for the {{ machine_name }} module.
+ */
+class Hooks {
+
+  /**
+   * Implements hook_theme().
+   */
+  #[Hook('theme')]
+  public function theme(array $existing, string $type, string $theme, string $path): array {
+    return [
+      'paragraph__{{ machine_name }}' => [
+        'base hook' => 'paragraph',
+      ],
+    ];
+  }
+{% if preprocess %}
+
+  /**
+   * Implements hook_preprocess_HOOK() for paragraph__{{ machine_name }}.
+   */
+  #[Hook('preprocess_paragraph__{{ machine_name }}')]
+  public function preprocessParagraph(array &$variables): void {
+    /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
+    $paragraph = $variables['paragraph'];
+    $variables['foo'] = ParagraphSettingsAccessor::value($paragraph, 'foo');
+  }
+{% endif %}
+
+}
