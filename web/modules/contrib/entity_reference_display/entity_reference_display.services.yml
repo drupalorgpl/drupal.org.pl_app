@@ -1,0 +1,5 @@
+
+services:
+  Drupal\entity_reference_display\Hook\EntityReferenceDisplayHooks:
+    class: Drupal\entity_reference_display\Hook\EntityReferenceDisplayHooks
+    autowire: true
