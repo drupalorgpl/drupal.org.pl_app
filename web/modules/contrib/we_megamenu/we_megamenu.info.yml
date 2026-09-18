@@ -1,0 +1,5 @@
+name: 'Mega Menu for Drupal 9/10'
+type: module
+description: 'This powerful Drupal module helps you create custom menu, video and Drupal Blocks.'
+package: 'WeMegaMenu'
+core_version_requirement: ^10 || ^11

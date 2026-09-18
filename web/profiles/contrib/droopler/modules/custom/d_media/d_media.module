@@ -1,0 +1,52 @@
+<?php
+
+/**
+ * @file
+ * Module file for d_media.
+ *
+ * Theme template-preprocess functions must live as global functions because
+ * Drupal's theme system discovers them by name (`template_preprocess_<hook>`).
+ * Module-implemented hooks (`hook_theme`, `hook_form_FORM_ID_alter`) have been
+ * moved to `src/Hook/Hooks.php`.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Template\Attribute;
+use Drupal\image\Entity\ImageStyle;
+
+/**
+ * Prepares variables for canvas image templates.
+ *
+ * Default template: d-media-canvas-image.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - image: image render element (output of image_style theme).
+ */
+function template_preprocess_d_media_canvas_image(array &$variables): void {
+  $style = ImageStyle::load($variables['image']['#style_name'] ?? '');
+  if ($style === NULL) {
+    return;
+  }
+
+  $scaling = NULL;
+  foreach ($style->getEffects() as $effect) {
+    $scaling = $effect;
+    break;
+  }
+  if ($scaling === NULL) {
+    return;
+  }
+
+  $configuration = $scaling->getConfiguration()['data'] ?? [];
+  if (empty($configuration['width']) || empty($configuration['height'])) {
+    return;
+  }
+
+  $variables['canvas_attributes'] = new Attribute([
+    'width' => $configuration['width'],
+    'height' => $configuration['height'],
+  ]);
+  $variables['#attached']['library'][] = 'd_media/canvas-image';
+}
