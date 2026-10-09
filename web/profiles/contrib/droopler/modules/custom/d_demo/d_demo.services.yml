@@ -1,0 +1,9 @@
+services:
+  d_demo.theme_logo:
+    class: Drupal\d_demo\Service\ThemeLogoService
+    arguments:
+      - '@config.factory'
+      - '@module_handler'
+
+  # Autowire alias.
+  Drupal\d_demo\Service\ThemeLogoService: '@d_demo.theme_logo'

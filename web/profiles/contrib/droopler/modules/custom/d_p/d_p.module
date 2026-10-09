@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Procedural shim for the d_p module.
+ *
+ * All hook implementations live in \Drupal\d_p\Hook\Hooks. The one hook
+ * below — `hook_module_implements_alter()` — MUST remain a global
+ * procedural function: it is part of the mechanism that builds the hook
+ * registry itself and therefore cannot be discovered through OOP
+ * `#[Hook]` attributes. Drupal core (HookCollectorPass) explicitly
+ * refuses to register `module_implements_alter` as an OOP hook.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_module_implements_alter().
+ *
+ * Ensures d_p's `hook_form_alter` runs last so we can react to other
+ * modules' mutations.
+ */
+function d_p_module_implements_alter(array &$implementations, string $hook): void {
+  if ($hook !== 'form_alter') {
+    return;
+  }
+  if (!array_key_exists('d_p', $implementations)) {
+    return;
+  }
+
+  $group = $implementations['d_p'];
+  unset($implementations['d_p']);
+  $implementations['d_p'] = $group;
+}
