@@ -1,0 +1,65 @@
+--- we_megamenu.module
++++ we_megamenu.module
+@@ -674,34 +674,37 @@ function we_megamenu_entity_insert(EntityInterface $entity) {
+ 
+           # Mega menu config
+           $menu_config = WeMegaMenuBuilder::loadConfig($menu_name, $theme_name);
+-          foreach ($menu_config->menu_config as $key_menu => $menu) {
+-            $mid_parent = ($mid_parent == 'standard.front_page') ? base_path() : $mid_parent;
+-            if ($key_menu == $mid_parent) {
+-              $rows_content = $menu->rows_content;
+-
+-              $tmp_col_content = new stdClass();
+-              $tmp_col_content->mlid = $entity->get('uuid')->getString();
+-              $tmp_col_content->type = 'we-mega-menu-li';
+-              $tmp_col_content->item_config = new stdClass();
+-
+-              $tmp_col_cfg = new stdClass();
+-              $tmp_col_cfg->hidewhencollapse = '';
+-              $tmp_col_cfg->type = 'we-mega-menu-col';
+-              $tmp_col_cfg->width = 12;
+-              $tmp_col_cfg->block = '';
+-              $tmp_col_cfg->class = '';
+-              $tmp_col_cfg->block_title = 0;
+-
+-              $child_item = [
+-                'col_content' =>$tmp_col_content,
+-                'col_cfg' =>$tmp_col_cfg,
+-              ];
+-              
+-              $menu_position = WeMegaMenuBuilder::menuItemInsert($key_menu, $menu_config, $menu, $child_item);
++          if (isset($menu_config)) {
++            foreach ($menu_config->menu_config as $key_menu => $menu) {
++              $mid_parent = ($mid_parent == 'standard.front_page') ? base_path() : $mid_parent;
++              if ($key_menu == $mid_parent) {
++                $rows_content = $menu->rows_content;
++  
++                $tmp_col_content = new stdClass();
++                $tmp_col_content->mlid = $entity->get('uuid')->getString();
++                $tmp_col_content->type = 'we-mega-menu-li';
++                $tmp_col_content->item_config = new stdClass();
++  
++                $tmp_col_cfg = new stdClass();
++                $tmp_col_cfg->hidewhencollapse = '';
++                $tmp_col_cfg->type = 'we-mega-menu-col';
++                $tmp_col_cfg->width = 12;
++                $tmp_col_cfg->block = '';
++                $tmp_col_cfg->class = '';
++                $tmp_col_cfg->block_title = 0;
++  
++                $child_item = [
++                  'col_content' =>$tmp_col_content,
++                  'col_cfg' =>$tmp_col_cfg,
++                ];
++                
++                $menu_position = WeMegaMenuBuilder::menuItemInsert($key_menu, $menu_config, $menu, $child_item);
++              }
+             }
++
++            $menu_config->menu_config->{$entity->get('uuid')->getString()} = $menu_item_obj;
+           }
+ 
+-          $menu_config->menu_config->{$entity->get('uuid')->getString()} = $menu_item_obj;
+           $data_cfg = json_encode($menu_config);
+           WeMegaMenuBuilder::saveConfig($menu_name, $theme_name, $data_cfg);
+         }

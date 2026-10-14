@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the d_p_subscribe_file module.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_install().
+ */
+function d_p_subscribe_file_install(): void {
+  \Drupal::configFactory()->getEditable('system.mail')
+    ->set('interface.d_p_subscribe_file', 'subscribe_file_html_mail')
+    ->save();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function d_p_subscribe_file_uninstall(): void {
+  \Drupal::configFactory()->getEditable('system.mail')
+    ->clear('interface.d_p_subscribe_file')
+    ->save();
+}
+
+/**
+ * Route d_p_subscribe_file emails through the dedicated HTML mail plugin.
+ */
+function d_p_subscribe_file_update_8001(): void {
+  \Drupal::configFactory()->getEditable('system.mail')
+    ->set('interface.d_p_subscribe_file', 'subscribe_file_html_mail')
+    ->save();
+}
