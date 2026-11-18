@@ -1,0 +1,5 @@
+
+services:
+  Drupal\we_megamenu\Hook\WeMegamenuHooks:
+    class: Drupal\we_megamenu\Hook\WeMegamenuHooks
+    autowire: true

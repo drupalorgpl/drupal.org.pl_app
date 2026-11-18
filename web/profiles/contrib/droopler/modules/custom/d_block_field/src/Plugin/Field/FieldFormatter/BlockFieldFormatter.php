@@ -1,0 +1,111 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Drupal\d_block_field\Plugin\Field\FieldFormatter;
+
+use Drupal\Component\Plugin\Exception\ContextException;
+use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Field\FormatterBase;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Plugin\Context\ContextHandlerInterface;
+use Drupal\Core\Plugin\Context\ContextRepositoryInterface;
+use Drupal\Core\Plugin\ContextAwarePluginInterface;
+use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\Session\AccountInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
+/**
+ * Plugin implementation of the 'd_block_field' formatter.
+ *
+ * @FieldFormatter(
+ *   id = "d_block_field",
+ *   label = @Translation("Block field"),
+ *   field_types = {
+ *     "d_block_field"
+ *   }
+ * )
+ */
+class BlockFieldFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
+
+  public function __construct(
+    $plugin_id,
+    $plugin_definition,
+    FieldDefinitionInterface $field_definition,
+    array $settings,
+    $label,
+    $view_mode,
+    array $third_party_settings,
+    protected ContextRepositoryInterface $contextRepository,
+    protected ContextHandlerInterface $contextHandler,
+    protected RendererInterface $renderer,
+    protected AccountInterface $currentUser,
+  ) {
+    parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
+    return new static(
+      $plugin_id,
+      $plugin_definition,
+      $configuration['field_definition'],
+      $configuration['settings'],
+      $configuration['label'],
+      $configuration['view_mode'],
+      $configuration['third_party_settings'],
+      $container->get('context.repository'),
+      $container->get('context.handler'),
+      $container->get('renderer'),
+      $container->get('current_user'),
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function viewElements(FieldItemListInterface $items, $langcode): array {
+    $elements = [];
+    foreach ($items as $delta => $item) {
+      /** @var \Drupal\d_block_field\BlockFieldItemInterface $item */
+      $block_instance = $item->getBlock();
+      if ($block_instance === NULL) {
+        continue;
+      }
+
+      if ($block_instance instanceof ContextAwarePluginInterface) {
+        try {
+          $contexts = $this->contextRepository->getRuntimeContexts($block_instance->getContextMapping());
+          $this->contextHandler->applyContextMapping($block_instance, $contexts);
+        }
+        catch (ContextException) {
+          continue;
+        }
+      }
+
+      if (!$block_instance->access($this->currentUser)) {
+        continue;
+      }
+
+      // See \Drupal\block\BlockViewBuilder::buildPreRenderableBlock() and
+      // template_preprocess_block() — we mirror the renderable structure.
+      $elements[$delta] = [
+        '#theme'                => 'block',
+        '#attributes'           => [],
+        '#configuration'        => $block_instance->getConfiguration(),
+        '#plugin_id'            => $block_instance->getPluginId(),
+        '#base_plugin_id'       => $block_instance->getBaseId(),
+        '#derivative_plugin_id' => $block_instance->getDerivativeId(),
+        'content'               => $block_instance->build(),
+      ];
+
+      $this->renderer->addCacheableDependency($elements[$delta], $block_instance);
+    }
+
+    return $elements;
+  }
+
+}

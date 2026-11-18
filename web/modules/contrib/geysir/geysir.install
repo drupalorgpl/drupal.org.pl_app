@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * Install the entity module.
+ */
+function geysir_update_8001() {
+  \Drupal::service('module_installer')->install(['entity']);
+}
