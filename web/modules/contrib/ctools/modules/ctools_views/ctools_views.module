@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * Allows core Views to have greater control over Blocks.
+ */
+
+use Drupal\Core\Hook\Attribute\ExtensionFileIsConverted;
+use Drupal\Core\Hook\Attribute\LegacyHook;
+use Drupal\ctools_views\Hook\CtoolsViewsHooks;
+
+/**
+ * Implements hook_views_plugins_display_alter().
+ *
+ * @phpstan-ignore attribute.notFound
+ */
+#[ExtensionFileIsConverted]
+#[LegacyHook]
+function ctools_views_views_plugins_display_alter(&$displays) {
+  \Drupal::service(CtoolsViewsHooks::class)->viewsPluginsDisplayAlter($displays);
+}
+
+/**
+ * Implements hook_config_schema_info_alter().
+ */
+#[LegacyHook]
+function ctools_views_config_schema_info_alter(&$definitions) {
+  \Drupal::service(CtoolsViewsHooks::class)->configSchemaInfoAlter($definitions);
+}

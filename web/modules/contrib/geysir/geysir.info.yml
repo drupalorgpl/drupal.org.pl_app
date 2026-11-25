@@ -1,0 +1,13 @@
+name: "Geysir"
+type: module
+description: "Enhancing the Drupal Author Experience."
+core_version_requirement: ^9.3 || ^10 || ^11
+package: Author Experience
+dependencies:
+  - entity:entity
+  - paragraphs:paragraphs
+
+# Information added by Drupal.org packaging script on 2025-03-12
+version: '2.1.2'
+project: 'geysir'
+datestamp: 1741791363

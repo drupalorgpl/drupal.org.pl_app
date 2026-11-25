@@ -1,0 +1,113 @@
+<?php
+
+/**
+ * @file
+ * Helps entity type to take the fields, display configuration from entity type.
+ */
+
+use Drupal\Core\Entity\Display\EntityDisplayInterface;
+use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Hook\Attribute\ExtensionFileIsConverted;
+use Drupal\Core\Hook\Attribute\LegacyHook;
+use Drupal\ctools_entity_mask\Hook\CtoolsEntityMaskHooks;
+
+/**
+ * Ensures that mask entity types have the same display modes as masked ones.
+ *
+ * @param array $display_modes
+ *   The display modes.
+ *
+ * @see \Drupal\ctools_entity_mask\Hook\CtoolsEntityMaskHooks::copyDisplayModes()
+ *
+ * @phpstan-ignore attribute.notFound
+ */
+#[ExtensionFileIsConverted]
+function ctools_entity_mask_copy_display_modes(array &$display_modes) {
+  \Drupal::service(CtoolsEntityMaskHooks::class)->copyDisplayModes($display_modes);
+}
+
+/**
+ * Implements hook_entity_view_mode_info_alter().
+ */
+#[LegacyHook]
+function ctools_entity_mask_entity_view_mode_info_alter(&$view_modes) {
+  \Drupal::service(CtoolsEntityMaskHooks::class)->entityViewModeInfoAlter($view_modes);
+}
+
+/**
+ * Implements hook_entity_form_mode_info_alter().
+ */
+#[LegacyHook]
+function ctools_entity_mask_entity_form_mode_info_alter(&$form_modes) {
+  \Drupal::service(CtoolsEntityMaskHooks::class)->entityFormModeInfoAlter($form_modes);
+}
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+#[LegacyHook]
+function ctools_entity_mask_entity_type_alter(array &$entity_types) {
+  \Drupal::service(CtoolsEntityMaskHooks::class)->entityTypeAlter($entity_types);
+}
+
+/**
+ * Copies all components from a display for a masked entity type.
+ *
+ * @param \Drupal\Core\Entity\Display\EntityDisplayInterface $display
+ *   The display for the mask entity type.
+ *
+ * @see \Drupal\ctools_entity_mask\Hook\CtoolsEntityMaskHooks::copyDisplay()
+ */
+function ctools_entity_mask_copy_display(EntityDisplayInterface $display) {
+  \Drupal::service(CtoolsEntityMaskHooks::class)->copyDisplay($display);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_create().
+ */
+#[LegacyHook]
+function ctools_entity_mask_entity_view_display_create(EntityViewDisplayInterface $display) {
+  \Drupal::service(CtoolsEntityMaskHooks::class)->entityViewDisplayCreate($display);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_create().
+ */
+#[LegacyHook]
+function ctools_entity_mask_entity_form_display_create(EntityFormDisplayInterface $display) {
+  \Drupal::service(CtoolsEntityMaskHooks::class)->entityFormDisplayCreate($display);
+}
+
+/**
+ * Implements hook_entity_view_display_alter().
+ */
+#[LegacyHook]
+function ctools_entity_mask_entity_view_display_alter(EntityViewDisplayInterface $display, array $context) {
+  \Drupal::service(CtoolsEntityMaskHooks::class)->entityViewDisplayAlter($display, $context);
+}
+
+/**
+ * Implements hook_entity_form_display_alter().
+ */
+#[LegacyHook]
+function ctools_entity_mask_entity_form_display_alter(EntityFormDisplayInterface $form_display, array $context) {
+  \Drupal::service(CtoolsEntityMaskHooks::class)->entityFormDisplayAlter($form_display, $context);
+}
+
+/**
+ * Implements hook_entity_bundle_field_info().
+ */
+#[LegacyHook]
+function ctools_entity_mask_entity_bundle_field_info(EntityTypeInterface $entity_type, $bundle) {
+  return \Drupal::service(CtoolsEntityMaskHooks::class)->entityBundleFieldInfo($entity_type, $bundle);
+}
+
+/**
+ * Implements hook_entity_field_storage_info().
+ */
+#[LegacyHook]
+function ctools_entity_mask_entity_field_storage_info(EntityTypeInterface $entity_type) {
+  return \Drupal::service(CtoolsEntityMaskHooks::class)->entityFieldStorageInfo($entity_type);
+}

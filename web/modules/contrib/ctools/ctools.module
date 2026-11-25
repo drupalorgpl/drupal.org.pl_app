@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @file
+ * Provides utility and helper APIs for Drupal developers and site builders.
+ */
+
+use Drupal\Core\Hook\Attribute\ExtensionFileIsConverted;
+use Drupal\Core\Hook\Attribute\LegacyHook;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\ctools\Hook\CtoolsHooks;
+
+/**
+ * Implements hook_theme().
+ *
+ * @phpstan-ignore attribute.notFound
+ */
+#[ExtensionFileIsConverted]
+#[LegacyHook]
+function ctools_theme($existing, $type, $theme, $path) {
+  return \Drupal::service(CtoolsHooks::class)->theme($existing, $type, $theme, $path);
+}
+
+/**
+ * Prepares variables for ctools wizard trail templates.
+ *
+ * Only called on Drupal core before 11.2, which ignores 'initial preprocess'.
+ *
+ * @param array $variables
+ *   The variables.
+ */
+function template_preprocess_ctools_wizard_trail(&$variables) {
+  \Drupal::service(CtoolsHooks::class)->preprocessWizardTrail($variables);
+}
+
+/**
+ * Prepares variables for ctools wizard trail links templates.
+ *
+ * Only called on Drupal core before 11.2, which ignores 'initial preprocess'.
+ *
+ * @param array $variables
+ *   The variables.
+ */
+function template_preprocess_ctools_wizard_trail_links(&$variables) {
+  \Drupal::service(CtoolsHooks::class)->preprocessWizardTrailLinks($variables);
+}
+
+/**
+ * Implements hook_condition_info_alter().
+ */
+#[LegacyHook]
+function ctools_condition_info_alter(&$definitions) {
+  \Drupal::service(CtoolsHooks::class)->conditionInfoAlter($definitions);
+}
+
+/**
+ * Implements hook_help().
+ */
+#[LegacyHook]
+function ctools_help($route_name, RouteMatchInterface $route_match) {
+  return \Drupal::service(CtoolsHooks::class)->help($route_name, $route_match);
+}
